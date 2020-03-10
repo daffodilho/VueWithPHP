@@ -40,21 +40,24 @@ function login($username, $password, $ip){
                     ':id'=>$id
                 )
             );
+
+            $user = array();
+
+            $user['id'] = $found_user['user_id'];
+            $user['username'] = $found_user['user_name'];
+            $user['admin'] = $found_user['user_admin'];
+            $user['access'] = $found_user['user_permissions'];
+            $user['avatar'] = $found_user['user_avatar'];
+
+            // add anything else you might need here
+            return $user;
         }
 
-        if(isset($id)){
-            redirect_to('index.php');
-        }else{
-            $message = 'Wrong password!';
-        }
     }else{
         //User does not exist
         $message = 'User does not exist';
+        return $message;
     }
-
-
-
-    return $message;
 }
 
 function confirm_logged_in(){
@@ -67,3 +70,4 @@ function logout(){
     session_destroy();
     redirect_to('admin_login.php');
 }
+
